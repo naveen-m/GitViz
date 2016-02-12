@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="sampleBuilder"
+         name="Sample Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="com.naveen.eclipse.plugindev.builder.SampleBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="sampleNature"
+         name="Sample Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.naveen.eclipse.plugindev.builder.SampleNature">
+         </run>
+      </runtime>
+      <builder
+            id="com.naveen.eclipse.pluginDev.sampleBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Sample Project Nature commands"
+            id="com.naveen.eclipse.pluginDev.sampleNature.category">
+      </category>
+      <command
+            name="Add/RemoveSample Project Nature"
+            defaultHandler="com.naveen.eclipse.plugindev.builder.AddRemoveSampleNatureHandler"
+            categoryId="com.naveen.eclipse.pluginDev.sampleNature.category"
+            id="com.naveen.eclipse.pluginDev.addRemoveSampleNature">
+      </command>
+      <category
+            name="Sample Category"
+            id="com.naveen.eclipse.pluginDev.commands.category">
+      </category>
+      <command
+            name="GitViz Welcomes You!"
+            categoryId="com.naveen.eclipse.pluginDev.commands.category"
+            id="com.naveen.eclipse.pluginDev.commands.sampleCommand">			<!-- ECLIPSE MENU: Command UI text -->
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+         <command
+               commandId="com.naveen.eclipse.pluginDev.addRemoveSampleNature"
+               label="Disable Sample builder"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <test
+                              value="com.naveen.eclipse.pluginDev.sampleNature"
+                              property="org.eclipse.core.resources.projectNature">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="com.naveen.eclipse.pluginDev.addRemoveSampleNature"
+               label="Enable Sample builder"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <not>
+                           <test
+                                 value="com.naveen.eclipse.pluginDev.sampleNature"
+                                 property="org.eclipse.core.resources.projectNature">
+                           </test>
+                        </not>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="GitViz Advantage(tm)"
+               mnemonic="M"
+               id="com.naveen.eclipse.pluginDev.menus.sampleMenu">
+            <command
+                  commandId="com.naveen.eclipse.pluginDev.commands.sampleCommand"
+                  mnemonic="S"
+                  id="com.naveen.eclipse.pluginDev.menus.sampleCommand">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="com.naveen.eclipse.pluginDev.toolbars.sampleToolbar">
+            <command
+                  commandId="com.naveen.eclipse.pluginDev.commands.sampleCommand"
+                  icon="icons/icon_GitViz_16pixel.png"
+                  tooltip="Say hello world 5"
+                  id="com.naveen.eclipse.pluginDev.toolbars.sampleCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         id="xmlProblem"
+         name="XML Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Sample XML Editor"
+            extensions="xml"
+            icon="icons/sample.gif"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="com.naveen.eclipse.plugindev.editors.XMLEditor"
+            id="com.naveen.eclipse.plugindev.editors.XMLEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers"><!-- .............. MENU: Command GitVizFridayHandler ............... -->
+      <handler
+            commandId="com.naveen.eclipse.pluginDev.commands.sampleCommand"
+            class="com.naveen.eclipse.plugindev.handlers.GVAMenuHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.naveen.eclipse.pluginDev.commands.sampleCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Sample Action Set"
+            visible="true"
+            id="com.naveen.eclipse.pluginDev.actionSet">
+         <menu
+               label="Sample &amp;Menu"
+               id="sampleMenu">
+            <separator
+                  name="sampleGroup">
+            </separator>
+         </menu>
+         <action
+               label="&amp;Sample Action"
+               icon="icons/sample.gif"
+               class="com.naveen.eclipse.plugindev.actions.SampleAction"
+               tooltip="Hello, Eclipse world"
+               menubarPath="sampleMenu/sampleGroup"
+               toolbarPath="sampleGroup"
+               id="com.naveen.eclipse.plugindev.actions.SampleAction">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml">
+      </toc>
+      <toc
+            file="testToc.xml"
+            primary="true">
+      </toc>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="com.naveen.eclipse.pluginDev.contribution1">
+         <menu
+               label="New Submenu"
+               path="additions"
+               id="com.naveen.eclipse.pluginDev.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="New Action"
+               class="com.naveen.eclipse.plugindev.popup.actions.NewAction"
+               menubarPath="com.naveen.eclipse.pluginDev.menu1/group1"
+               enablesFor="1"
+               id="com.naveen.eclipse.pluginDev.newAction">
+         </action>
+      </objectContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.views"><!-- ...... VIEW#1: GitVizSaturdaySampleView - View#1 FREE GitVizUserView .... -->
+      <category
+            name="GitViz Advantage"
+            id="com.naveen.eclipse.pluginDev">
+      </category><!-- Change this to have your own 'perspective', or hook to existing -->
+      <view
+            name="GitViz Advantage FREE View"
+            icon="icons/icon_GitViz_16pixel.png"
+            category="com.naveen.eclipse.pluginDev"
+            class="com.naveen.eclipse.gva.userViews.GitVizUserView"
+            id="com.naveen.eclipse.gva.userViews.GitVizUserView">
+      </view><!-- UXDesign: custom icon in 'view' Menu ??? -->
+   </extension>   
+<!-- ...... VIEW#2: GitVizSaturdaySampleView - View#2 Premium GVA2 .... -->
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="GitViz Advantage"
+            id="com.naveen.eclipse.pluginDev">
+      </category>
+      <view
+            name="GitViz Advantage2 Premium View"
+            icon="icons/icon_GitViz_16pixel.png"
+            category="com.naveen.eclipse.pluginDev"
+            class="com.naveen.eclipse.gva2.userViews.GitVizPlusView"
+            id="com.naveen.eclipse.gva2.userViews.GitVizPlusView">
+      </view>
+   </extension>
+<!-- FUTURE: GitViz2 "Plus Premium edition" To activate, adjust MANIFEST.MF - PLUGIN bundleID="com.naveen.eclipse.gva2" -->
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="com.naveen.eclipse.gva.userViews.GitVizUserView">
+         </view><!-- Apparently: Perspective/View master hook is to this class here ???? -->
+      </perspectiveExtension>
+   </extension>
+
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.egit.ui.commitMessageProvider">
+   </extension>
+   <extension
+         point="org.eclipse.egit.ui.branchNameProvider">
+   </extension>
+   <extension
+         point="org.eclipse.egit.ui.cloneSourceProvider">
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.team.ui.changeSets">
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.tasks.ui.actions">
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.versions.ui.connectors">
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.tasks.ui.repositories">
+   </extension>
+<!-- Thur 730pm   
+   <extension
+         point="org.archstudio.myxgen.brick">
+   </extension>
+   <extension
+         point="org.archstudio.myx.fw.equinox.brickLoader">
+   </extension>
+   <extension
+         point="org.eclipse.egit.ui.branchNameProvider">
+      <category
+            name="Sample Project Nature commands"
+            id="com.naveen.eclipse.pluginDev.sampleNature.category">
+      </category>
+         <branchNameProvider
+         	class="com.naveen.eclipse.plugindev.views.FancyGitVizView" />
+   </extension>
+-->
+   <extension
+         point="org.eclipse.egit.ui.branchNameProvider">
+         <branchNameProvider
+         	class="com.naveenproto.extensions.egit.FancyGitVizView" /><!-- NOT GOING to WORK ... Interface ... .EXSD -->
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            default="false"
+            id="com.naveen.eclipse.pluginDev.editor1"
+            name="name">
+      </editor>
+   </extension>
+
+
+
+</plugin>

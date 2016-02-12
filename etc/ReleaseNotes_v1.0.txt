@@ -1,0 +1,34 @@
+Release Notes
+----------------------
+
+
+Implementation Notes
+----------------------
+Mon 6/08 - Final v1.0b "Beta" Release (Code Submit to Canvas. Project Done.)
+
+Wed 6/03 - Final v1.0a "Alpha" Release & Final Presentation (Code Complete)
+         - TBD: Who will write-up the final Presentation?
+         - TBD: Who will write-up the final Word Document (Tech Design)?
+
+Wed 5/27 - Last   Build Integration planned v0.9
+
+TBD 5/21 - Team Component delivery commitments
+         - Naveen = which component(s)?  UserAuth? Repository? File?
+         - Jay    = which component(s)?
+         - Salma  = which component(s)?
+         - naveen  = start GitDataComponent?
+         - naveen: Eclipse Plugin, Basic Framework (after Component commitments)
+
+Wed 5/20 - Third  Build Integration v0.8
+         - Group meeting: decided individuals which each "pick" a component to implement
+Mon 5/18 - Round#3: Update on Implementation Team Status (PPT)
+         - naveen: Eclipse Plugin, Basic Framework (Hello World)
+
+Wed 5/13 - Second Build Prototyping (non-integrated/individually) v0.7
+			naveen
+			
+Wed 5/06 - First  Build Prototyping (non-integrated/individually) v0.6
+			naveen
+
+Mon 5/04 - Round#2: Technical Design Specification and Group Presentation
+			All
